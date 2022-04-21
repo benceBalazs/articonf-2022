@@ -1,4 +1,0 @@
-DApp monitoring
-
-data repository:
-https://github.com/AXinx/DApp-monitoring-data.git

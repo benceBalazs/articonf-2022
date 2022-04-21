@@ -1,4 +1,0 @@
-Crowd journalism
-
-data repository:
-https://gitlab.com/vfilipe/articonf-datathon-crowdjournalism
