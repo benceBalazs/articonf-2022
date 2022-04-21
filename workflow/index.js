@@ -17,7 +17,35 @@ console.log("2. Adjust .json to include states calculated by lat and long");
 
 console.log("3. Adjust .json regarding csv compatibility");
 
-adjustSuggestions();
+// adjustSuggestions();
+
+console.log("4. Relation User-Reputation");
+
+calcReputationZones();
+
+function calcReputationZones(){
+  let users = JSON.parse(fs.readFileSync(directory+"findings/Users.json").toString());
+  let cars = JSON.parse(fs.readFileSync(directory+"findings/Car.json").toString());
+  let travel = JSON.parse(fs.readFileSync(directory+"findings/Travel_ext.json").toString());
+  let result = [];
+  users.forEach((user)=>{
+    cars.forEach((car)=>{
+      travel.forEach((travel)=>{
+        if(user.id == car.ownerId && car.carLicensePlate == travel.carLicensePlate){
+          result.push({"user": user.id,"reputation": user.reputation, "location": travel.startPlace })
+        }
+      });
+    });
+  });
+  fs.writeFile(
+    directory + "/findings/" + "reputation.json",
+    JSON.stringify(result, undefined, 2),
+    function (err) {
+      if (err) throw err;
+      console.log("Saved!");
+    }
+  );
+}
 
 function adjustSuggestions() {
   let tempTravelFile = JSON.parse(fs.readFileSync(directory+"findings/Travel_ext.json").toString());
