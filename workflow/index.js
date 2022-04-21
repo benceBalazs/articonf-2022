@@ -36,11 +36,13 @@ function suggestions(tempTravelFile){
     travelInstance.startedBy = {};
     travelInstance.suggestedEndPlaces = {};
     JSON.parse(saveSuggestionStart).forEach((start, index)=>{
-      travelInstance.startedBy["coordinate"+index] = {"latitude": start.coordinate.latitude, "longitude": start.coordinate.longitude};
-      travelInstance.startedBy["moment"] = start.moment;
+      // travelInstance.startedBy["coordinate"+index] = {"latitude": start.coordinate.latitude, "longitude": start.coordinate.longitude};
+      // travelInstance.startedBy["moment"] = start.moment;
+      tempTravelFile.push({startPlace: {"latitude": start.coordinate.latitude, "longitude": start.coordinate.longitude, "startTime" : start.moment, "kmTraveled": travelInstance.kmTraveled, "totalPrice" : travelInstance.totalPrice}});
     });
     JSON.parse(saveSuggestionEnd).forEach((end)=>{
-      travelInstance.suggestedEndPlaces[end.suggestedBy] = {"latitude": end.endPlace.latitude, "longitude": end.endPlace.longitude};
+      tempTravelFile.push({ endPlace: {"latitude": end.endPlace.latitude, "longitude": end.endPlace.longitude}});
+      // travelInstance.suggestedEndPlaces[end.suggestedBy] = {"latitude": end.endPlace.latitude, "longitude": end.endPlace.longitude};
     });
   });
   fs.writeFile(
