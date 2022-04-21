@@ -5,6 +5,8 @@ let directory = "../3_Car_sharing/";
 
 console.log("-- Welcome to the Articonf-2022 Dataset Analyzer --\n");
 console.log("1. Converting .csv to .json");
+createFolder("findings");
+convertToJSON();
 
 function convertToJSON() {
   fs.readdirSync(directory).forEach(file => {
@@ -33,6 +35,3 @@ function createFolder(name) {
     });
   }
 }
-
-createFolder("findings");
-convertToJSON();
